@@ -6,31 +6,13 @@
 // @include     /^.*(thread|forum|diendan).*$/
 // @include     http://www.vn-zoom.com/*
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js
+// @noframes
 // @grant       GM_addStyle
-// @version     6.0
-// @copyright   2014, theheroofvn
+// @version     6.1
 // ==/UserScript==
 
-if (frameElement) return;
-
-//this.$ = this.jQuery = jQuery.noConflict(true);
-
-(function() {
-    var prev, next, first, last, up, up_sub = '[itemtype="http://data-vocabulary.org/Breadcrumb"] a';
-    var site_info = [{
-        host: "www.webtretho.com",
-        prev: "a.arrowPrePage",
-        next: "a.arrowNextPage",
-        first: "a.arrowFstPage",
-        last: "a.arrowLstPage"
-    }, {
-        host: "forum.bkav.com.vn",
-        prev: "a.js-pagenav-prev-button[href]:not([href=''])",
-        next: "a.js-pagenav-next-button[href]:not([href=''])",
-        first: "a[data-page='1']",
-        last: "a.js-pagenav-button[href]:not([href='']):nth-last-child(2)",
-        up: "#breadcrumbs a.crumb-link"
-    }];
+$(document).ready(function () {
+    $(window).focus();
 
     function custom_site(list) {
         if (list.length === 0) return 0;
@@ -59,61 +41,140 @@ if (frameElement) return;
         else if (checkScriptExist("forum_fn.js")) result = "phpbb";
         return result;
     }
-    var detect = detect_forum();
+
+    var prev, next, first, last, up, up_sub = '[itemtype="http://data-vocabulary.org/Breadcrumb"] a';
+    var site_info = [{
+        host: "www.webtretho.com",
+        prev: "a.arrowPrePage",
+        next: "a.arrowNextPage",
+        first: "a.arrowFstPage",
+        last: "a.arrowLstPage"
+    }, {
+        host: "forum.bkav.com.vn",
+        prev: "a.js-pagenav-prev-button",
+        next: "a.js-pagenav-next-button",
+        first: "a[data-page='1']",
+        last: "a.js-pagenav-button:nth-last-child(2)",
+        up: "#breadcrumbs a.crumb-link"
+    }];
+
     if (custom_site(site_info) === 0) {
-        if (detect == "vbb") {
-            prev = 'a[rel="prev"]';
-            next = 'a[rel="next"]';
-            first = 'a[rel="start"]';
-            last = 'a[title^="Last"], a[title*="uối"]';
-            up = "span.navbar a, li.navbit a";
-        } else if (detect == "xenforo") {
-            prev = ".PageNav a.text:first-child";
-            next = ".PageNav a.text:last-child";
-            last = ".PageNav nav > a:nth-last-child(2)";
-            first = 'a[rel="start"]';
-            up = "a.crumb";
-        } else if (detect == "mybb") {
-            prev = "a.pagination_previous";
-            next = "a.pagination_next";
-            first = "a.pagination_first";
-            last = "a.pagination_last";
-            up = ".navigation > a";
-        } else if (detect == "phpbb") {
-            prev = ".display-options a.left-box.left";
-            next = ".display-options a.right-box.right";
-            first = ".pagination > span > a:first-child";
-            last = ".pagination > span > a:last-child";
-            up = ".navlinks > .icon-home a";
-        } else return;
+        switch (detect_forum()) {
+            case 'vbb':
+                prev = 'a[rel="prev"]';
+                next = 'a[rel="next"]';
+                first = 'a[rel="start"]';
+                last = 'a[title^="Last"], a[title*="uối"]';
+                up = "span.navbar a, li.navbit a";
+                break;
+            case 'xenforo':
+                prev = ".PageNav a.text:first-child";
+                next = ".PageNav a.text:last-child";
+                last = ".PageNav nav > a:nth-last-child(2)";
+                first = 'a[rel="start"]';
+                up = "a.crumb";
+                break;
+            case 'mybb':
+                prev = "a.pagination_previous";
+                next = "a.pagination_next";
+                first = "a.pagination_first";
+                last = "a.pagination_last";
+                up = ".navigation > a";
+                break;
+            case 'phpbb':
+                prev = ".display-options a.left-box.left";
+                next = ".display-options a.right-box.right";
+                first = ".pagination > span > a:first-child";
+                last = ".pagination > span > a:last-child";
+                up = ".navlinks > .icon-home a";
+                break;
+            default:
+                return;
+                break;
+        }
     }
+
     var nav = {
-        prev: $(prev)[0],
-        next: $(next)[0],
-        first: $(first)[0],
-        last: $(last)[0],
-        up: function() {
-            return $(up).length > 0 ? $(up).last()[0] : $(up_sub).last()[0];
+        prev: $(prev),
+
+        next: $(next),
+
+        first: function () {
+            if ($(first).length > 0) {
+                return $(first);
+            } else {
+                let $prev = $(prev).first();
+
+                if ($prev) {
+                    $prev.attr('href', function (_, value) {
+                        return value.replace(/page=\d+/, 'page=1');
+                    });
+
+                    return $prev;
+                } else {
+                    return $();
+                }
+            }
+        },
+
+        last: function () {
+            if ($(last).length > 0) {
+                return $(last);
+            } else {
+                let $next = $(next).first();
+
+                if ($next) {
+                    $next.attr('href', function (_, value) {
+                        return value.replace(/page=\d+/, 'page=9999');
+                    });
+
+                    return $next;
+                } else {
+                    return $();
+                }
+            }
+        },
+
+        up: function () {
+            return $(up).length > 0 ? $(up).last() : $(up_sub).last();
         }
     };
+
     var allowed = true;
-    $(window).keydown(function(e) {
-        if (!allowed) return;
+
+    $(document).keydown(function (e) {
+        if (!allowed) {
+            return;
+        }
+
         allowed = false;
+
         var key = e.keyCode,
             action = null;
+
         if (e.ctrlKey) {
             allowed = true;
             if (key == 39) action = "last";
             else if (key == 37) action = "first";
             else if (key == 8) action = "up";
-        } else if (key == 39) action = "next";
-        else if (key == 37) action = "prev";
-        else return;
-        if (!action || typeof nav[action] === "undefined" || e.target.tagName == "INPUT" || e.target.tagName == "TEXTAREA") return;
-        var link = (typeof nav[action] === "function") ? nav[action]() : nav[action];
-        window.location = link;
-    }).keyup(function(e) {
+        } else if (key == 39) {
+            action = "next";
+        } else if (key == 37) {
+            action = "prev";
+        } else {
+            return;
+        }
+
+        if (!action || e.target.tagName == "INPUT" || e.target.tagName == "TEXTAREA") {
+            return;
+        }
+
+        var $anchor = (typeof nav[action] === "function") ? nav[action]() : nav[action];
+
+        if ($anchor.length) {
+            window.location = $anchor.attr('href');
+        }
+    }).keyup(function (e) {
         allowed = true;
     });
-})();
+});
