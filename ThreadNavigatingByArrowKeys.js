@@ -8,7 +8,7 @@
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js
 // @noframes
 // @grant       GM_addStyle
-// @version     6.1
+// @version     6.2
 // ==/UserScript==
 
 $(document).ready(function () {
@@ -95,15 +95,19 @@ $(document).ready(function () {
     }
 
     var nav = {
-        prev: $(prev),
+        prev: function() {
+            return $(prev);
+        },
 
-        next: $(next),
+        next: function() {
+            return $(next);
+        },
 
         first: function () {
             if ($(first).length > 0) {
                 return $(first);
             } else {
-                let $prev = $(prev).first();
+                var $prev = $(prev).first();
 
                 if ($prev) {
                     $prev.attr('href', function (_, value) {
@@ -121,7 +125,7 @@ $(document).ready(function () {
             if ($(last).length > 0) {
                 return $(last);
             } else {
-                let $next = $(next).first();
+                var $next = $(next).first();
 
                 if ($next) {
                     $next.attr('href', function (_, value) {
@@ -169,7 +173,7 @@ $(document).ready(function () {
             return;
         }
 
-        var $anchor = (typeof nav[action] === "function") ? nav[action]() : nav[action];
+        var $anchor = nav[action]();
 
         if ($anchor.length) {
             window.location = $anchor.attr('href');
