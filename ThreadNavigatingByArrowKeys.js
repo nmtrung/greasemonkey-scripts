@@ -176,7 +176,7 @@ $(document).ready(function () {
         var $anchor = nav[action]();
 
         if ($anchor.length) {
-            window.location = $anchor.attr('href');
+            window.location.href = $anchor[0].href;
         }
     }).keyup(function (e) {
         allowed = true;
