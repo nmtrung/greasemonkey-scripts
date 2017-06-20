@@ -5,10 +5,10 @@
 // @author      theheroofvn
 // @include     /^.*(thread|forum|diendan).*$/
 // @include     http://www.vn-zoom.com/*
-// @require     http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js
+// @require     https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 // @noframes
 // @grant       GM_addStyle
-// @version     6.2
+// @version     6.3
 // ==/UserScript==
 
 $(document).ready(function () {
