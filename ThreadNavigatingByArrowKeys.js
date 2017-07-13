@@ -8,7 +8,7 @@
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 // @noframes
 // @grant       GM_addStyle
-// @version     6.3
+// @version     6.4
 // ==/UserScript==
 
 $(document).ready(function () {
@@ -69,7 +69,7 @@ $(document).ready(function () {
                 break;
             case 'xenforo':
                 prev = ".PageNav a.text:first-child";
-                next = ".PageNav a.text:last-child";
+                next = ".PageNav a.text:last-child:not(.brjtpJumper)";
                 last = ".PageNav nav > a:nth-last-child(2)";
                 first = 'a[rel="start"]';
                 up = "a.crumb";
