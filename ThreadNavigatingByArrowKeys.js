@@ -1,14 +1,16 @@
 // ==UserScript==
-// @name        Thread Navigating by Arrow keys
-// @namespace   https://greasyfork.org/scripts/6849-thread-navigating-by-arrow-keys
-// @description Use ← or → and Ctrl to navigate to previous, next, first or last page
-// @author      theheroofvn
-// @include     /^.*(thread|forum|diendan).*$/
-// @include     http://www.vn-zoom.com/*
-// @require     https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
+// @name            Thread Navigating by Arrow keys
+// @name:vi         Thread Navigating by Arrow keys
+// @namespace       https://greasyfork.org/scripts/6849-thread-navigating-by-arrow-keys
+// @description     Use ← or → and Ctrl to navigate to previous, next, first or last page
+// @description:vi  Use ← or → and Ctrl to navigate to previous, next, first or last page
+// @author          theheroofvn
+// @include         /^.*(thread|forum|diendan).*$/
+// @include         http://www.vn-zoom.com/*
+// @require         https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 // @noframes
-// @grant       GM_addStyle
-// @version     6.4
+// @grant           GM_addStyle
+// @version         6.5
 // ==/UserScript==
 
 $(document).ready(function () {
@@ -34,6 +36,10 @@ $(document).ready(function () {
     }
 
     function detect_forum() {
+        if (window.location.hostname === 'forum.xda-developers.com') {
+            return 'vbb';
+        }
+
         var result = "";
         if (checkScriptExist("vbulletin")) result = "vbb";
         else if (checkScriptExist("xenforo")) result = "xenforo";
@@ -63,7 +69,7 @@ $(document).ready(function () {
             case 'vbb':
                 prev = 'a[rel="prev"]';
                 next = 'a[rel="next"]';
-                first = 'a[rel="start"]';
+                first = 'a[rel="start"], a[rel="first"]';
                 last = 'a[title^="Last"], a[title*="uối"]';
                 up = "span.navbar a, li.navbit a";
                 break;
@@ -90,16 +96,15 @@ $(document).ready(function () {
                 break;
             default:
                 return;
-                break;
         }
     }
 
     var nav = {
-        prev: function() {
+        prev: function () {
             return $(prev);
         },
 
-        next: function() {
+        next: function () {
             return $(next);
         },
 
