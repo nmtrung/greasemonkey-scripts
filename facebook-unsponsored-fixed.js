@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Facebook unsponsored fixed
-// @version      1.21
+// @version      1.23
 // @description  Block Facebook news feed "sponsored" posts
 // @author       solskido
 // @supportURL   https://greasyfork.org/en/scripts/22210-facebook-unsponsored/feedback
@@ -32,20 +32,23 @@
             'div[id^=feed_subtitle] > span > div > div > a > div',
             'div[id^=feed_subtitle] > span > a > div',
             'div[id^=feed_subtitle] > s > div a > span',
+            'div[id^=feed_subtitle] > s > div a > div',
             'div[id^=feed_subtitle] > span > span',
+            'div[id^=feedsubt_itle] > span > span > span > a > span',
             'a.uiStreamSponsoredLink',
             'a[rel=dialog-post] > span > span'
         ],
         'preCompare': function (node) {
             var childIterator;
-            var fontSize;
+            var computedStyle;
             var toCompare = node[nodeContentKey];
             if (node.offsetParent && node.children.length) {
                 toCompare = '';
 
                 for (childIterator = 0; childIterator < node.children.length; childIterator++) {
-                    fontSize = parseInt(window.getComputedStyle(node.children[childIterator], null).fontSize, 10);
-                    if (fontSize > 0) {
+                    computedStyle = window.getComputedStyle(node.children[childIterator], null);
+
+                    if (parseInt(computedStyle.fontSize, 10) > 0 && parseInt(computedStyle.opacity, 10) > 0) {
                         toCompare += node.children[childIterator][nodeContentKey];
                     }
                 }
