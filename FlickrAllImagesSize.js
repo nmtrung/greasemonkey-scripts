@@ -2,7 +2,7 @@
 // @name        Flickr All Images Size
 // @namespace   https://greasyfork.org/scripts/6850-flickr-all-images-size
 // @include     /flickr\.com\/(photos|groups|search)\//
-// @version     4.3.8
+// @version     4.3.9
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
@@ -48,7 +48,7 @@ function action_singlephoto(oldURL) {
         childList: true,
         subtree: true,
     };
-    var action = function(sourceCode) {
+    var action = function (sourceCode) {
         var size = sourceCode.match(/modelExport: {.+?"sizes":{.+?}}/i);
         var strCss = ".bigButton {position:relative;z-index:999;display:inline-block;cursor:pointer;border-style:solid;border-width:2px;border-radius:50px;padding:1em;margin:0.3em;font-size:90%;font-weight:bold;} .smallButton {position:relative;z-index:999;display:inline-block;padding:0.5em;margin:0.3em;background-color:pink;border-radius:1.5em;font-size:90%}";
         $('head').append('<style>' + strCss + '</style>');
@@ -57,7 +57,7 @@ function action_singlephoto(oldURL) {
         var length = mLink.length;
         for (var k = 0; k < length; k++) {
             mSize[k] = mSize[k].replace(/"width":(\d+),"height":(\d+),/i, "$1 x $2");
-            mLink[k] = "http:" + mLink[k].replace(/"displayUrl":"([^"]+)"/i, "$1").replace(/\\/g, "").replace(/(_[a-z])\.([a-z]{3,4})/i, '$1' + postfix + '$2');
+            mLink[k] = mLink[k].replace(/"displayUrl":"([^"]+)"/i, "$1").replace(/\\/g, "").replace(/(_[a-z])\.([a-z]{3,4})/i, '$1' + postfix + '$2');
         }
         var insertLocation = $('.sub-photo-right-row1');
         if (insertLocation.length > 0) {
@@ -67,7 +67,7 @@ function action_singlephoto(oldURL) {
             }
         }
     };
-    var observer = new MutationObserver(function(mutations, ob) {
+    var observer = new MutationObserver(function (mutations, ob) {
         if (document.URL == oldURL) return;
         oldURL = document.URL;
         $.get(oldURL, action);
@@ -90,7 +90,7 @@ function flickr_mouseenter() {
     } else if (type == 'group') {
         e.find('div.meta-bar').css('bottom', '1em');
     }
-    $.get(url, function(data) {
+    $.get(url, function (data) {
         var photo = data.match(/"displayUrl":"([^"]+)","width":(\d+),"height":(\d+)[^}]+}}/i);
         var link = "http:" + photo[1].replace(/\\/g, "").replace(/(_[a-z])\.([a-z]{3,4})/i, '$1' + postfix + '$2');
         var text = prefix + photo[2] + " x " + photo[3];
@@ -109,7 +109,7 @@ function action_page_need_hover() {
     };
     var strCss = ".myFuckingLink{position:absolute;left:3px;bottom:0px;z-index:999;display:inline-block;color:white!important;font-size:96%}";
     $('head').append('<style>' + strCss + '</style>');
-    var observer = new MutationObserver(function(mutations, ob) {
+    var observer = new MutationObserver(function (mutations, ob) {
         $('div.photo-list-photo-view').mouseenter(flickr_mouseenter);
         $('figure.ui-display').mouseenter(flickr_mouseenter);
         if (value_alwaysShow) {
@@ -134,13 +134,13 @@ function pageType() {
 getSetting();
 var type = pageType();
 $('ul.nav-menu:first').append('<li><div style="color:pink;padding-top:7px"><input id="optionbox_openLink" type="checkbox"' + isChecked_openLink + 'style="margin:2px"/>Open image link in browser<br><input id="optionbox_alwaysShow" type="checkbox"' + isChecked_alwaysShow + 'style="margin:2px"/>Always show image information in Photostream</div></li>');
-$('#optionbox_openLink').change(function() {
+$('#optionbox_openLink').change(function () {
     GM_setValue(key_openLink, $(this).prop('checked'));
     getSetting();
     $('.myFuckingLink').remove();
     $('.photo-list-photo-view').mouseenter(flickr_mouseenter);
 });
-$('#optionbox_alwaysShow').change(function() {
+$('#optionbox_alwaysShow').change(function () {
     GM_setValue(key_alwaysShow, $(this).prop('checked'));
     getSetting();
     if (value_alwaysShow) {
