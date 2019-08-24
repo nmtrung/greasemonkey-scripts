@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Facebook unsponsored fixed
-// @version      1.23
+// @version      1.24
 // @description  Block Facebook news feed "sponsored" posts
 // @author       solskido
 // @supportURL   https://greasyfork.org/en/scripts/22210-facebook-unsponsored/feedback
@@ -24,32 +24,36 @@
     var streamSelector = 'div[id^="topnews_main_stream"]';
     var storySelectors = [
         'div[id^="hyperfeed_story_id"]',
-        'div[data-ownerid^="hyperfeed_story_id"]'
+        // 'div[data-ownerid^="hyperfeed_story_id"]'
     ];
     var searchedNodes = [{
         // Sponsored
         'selector': [
-            'div[id^=feed_subtitle] > span > div > div > a > div',
-            'div[id^=feed_subtitle] > span > a > div',
-            'div[id^=feed_subtitle] > s > div a > span',
-            'div[id^=feed_subtitle] > s > div a > div',
-            'div[id^=feed_subtitle] > span > span',
-            'div[id^=feedsubt_itle] > span > span > span > a > span',
-            'a.uiStreamSponsoredLink',
-            'a[rel=dialog-post] > span > span'
+            // 'div[id^=feed_subtitle] > span > div > div > a > div',
+            // 'div[id^=feed_subtitle] > span > a > div',
+            // 'div[id^=feed_subtitle] > s > div a > span',
+            // 'div[id^=feed_subtitle] > s > div a > div',
+            // 'div[id^=feed_subtitle] > span > span',
+            // 'div[id^=feedsubt_itle] > span > span > span > a > span',
+            // 'a.uiStreamSponsoredLink',
+            // 'a[rel=dialog-post] > span > span',
+            'div[id^=fb_story_md] > span > span > span > a > span',
         ],
         'preCompare': function (node) {
-            var childIterator;
-            var computedStyle;
-            var toCompare = node[nodeContentKey];
+            let toCompare = '';
+
             if (node.offsetParent && node.children.length) {
-                toCompare = '';
+                for (let childIterator = 0; childIterator < node.children.length; childIterator++) {
+                    // const targetElem = (childIterator === 0) ? node.children[childIterator] : node.children[childIterator].firstChild;
+                    const targetElem = node.children[childIterator].firstChild;
 
-                for (childIterator = 0; childIterator < node.children.length; childIterator++) {
-                    computedStyle = window.getComputedStyle(node.children[childIterator], null);
+                    if (targetElem && window.getComputedStyle(targetElem).display !== 'none') {
+                        let pseudoContent = window.getComputedStyle(targetElem, ':after').content;
+                        pseudoContent = pseudoContent.replace(/['"]+/g, '');
 
-                    if (parseInt(computedStyle.fontSize, 10) > 0 && parseInt(computedStyle.opacity, 10) > 0) {
-                        toCompare += node.children[childIterator][nodeContentKey];
+                        if (pseudoContent && pseudoContent !== 'none') {
+                            toCompare += pseudoContent;
+                        }
                     }
                 }
             }
@@ -401,23 +405,23 @@
                 nodes = story.querySelectorAll(searchedNodes[typeIterator].selector[selectorIterator]);
                 for (nodeIterator = 0; nodeIterator < nodes.length; nodeIterator++) {
                     nodeContent = nodes[nodeIterator][nodeContentKey];
-                    if (nodeContent) {
-                        for (targetIterator = 0; targetIterator < searchedNodes[typeIterator].content.length; targetIterator++) {
-                            if (searchedNodes[typeIterator].exclude && searchedNodes[typeIterator].exclude(nodes[nodeIterator])) {
-                                continue;
-                            }
+                    //if (nodeContent) {
+                    for (targetIterator = 0; targetIterator < searchedNodes[typeIterator].content.length; targetIterator++) {
+                        if (searchedNodes[typeIterator].exclude && searchedNodes[typeIterator].exclude(nodes[nodeIterator])) {
+                            continue;
+                        }
 
-                            if (searchedNodes[typeIterator].preCompare) {
-                                comparisonString = searchedNodes[typeIterator].preCompare(nodes[nodeIterator]);
-                            } else {
-                                comparisonString = nodeContent.trim();
-                            }
+                        if (searchedNodes[typeIterator].preCompare) {
+                            comparisonString = searchedNodes[typeIterator].preCompare(nodes[nodeIterator]);
+                        } else {
+                            comparisonString = nodeContent.trim();
+                        }
 
-                            if (searchedNodes[typeIterator].content[targetIterator] == comparisonString) {
-                                return true;
-                            }
+                        if (searchedNodes[typeIterator].content[targetIterator] == comparisonString) {
+                            return true;
                         }
                     }
+                    //}
                 }
             }
         }
