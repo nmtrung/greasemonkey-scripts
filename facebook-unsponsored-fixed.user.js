@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Facebook unsponsored fixed
-// @version      1.24
+// @version      1.25
 // @description  Block Facebook news feed "sponsored" posts
 // @author       solskido
 // @supportURL   https://greasyfork.org/en/scripts/22210-facebook-unsponsored/feedback
@@ -44,8 +44,7 @@
 
             if (node.offsetParent && node.children.length) {
                 for (let childIterator = 0; childIterator < node.children.length; childIterator++) {
-                    // const targetElem = (childIterator === 0) ? node.children[childIterator] : node.children[childIterator].firstChild;
-                    const targetElem = node.children[childIterator].firstChild;
+                    const targetElem = node.children[childIterator].firstChild || node.children[childIterator];
 
                     if (targetElem && window.getComputedStyle(targetElem).display !== 'none') {
                         let pseudoContent = window.getComputedStyle(targetElem, ':after').content;
