@@ -10,7 +10,7 @@
 // @require         https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 // @noframes
 // @grant           GM_addStyle
-// @version         6.5
+// @version         6.6
 // ==/UserScript==
 
 $(document).ready(function () {
@@ -49,20 +49,29 @@ $(document).ready(function () {
     }
 
     var prev, next, first, last, up, up_sub = '[itemtype="http://data-vocabulary.org/Breadcrumb"] a';
-    var site_info = [{
-        host: "www.webtretho.com",
-        prev: "a.arrowPrePage",
-        next: "a.arrowNextPage",
-        first: "a.arrowFstPage",
-        last: "a.arrowLstPage"
-    }, {
-        host: "forum.bkav.com.vn",
-        prev: "a.js-pagenav-prev-button",
-        next: "a.js-pagenav-next-button",
-        first: "a[data-page='1']",
-        last: "a.js-pagenav-button:nth-last-child(2)",
-        up: "#breadcrumbs a.crumb-link"
-    }];
+    var site_info = [
+        {
+            host: "next.voz.vn",
+            prev: "a.pageNav-jump--prev",
+            next: "a.pageNav-jump--next",
+            first: ".pageNav-main>.pageNav-page:first-child>a",
+            last: ".pageNav-main>.pageNav-page:last-child>a"
+        }
+        , {
+            host: "www.webtretho.com",
+            prev: "a.arrowPrePage",
+            next: "a.arrowNextPage",
+            first: "a.arrowFstPage",
+            last: "a.arrowLstPage"
+        }, {
+            host: "forum.bkav.com.vn",
+            prev: "a.js-pagenav-prev-button",
+            next: "a.js-pagenav-next-button",
+            first: "a[data-page='1']",
+            last: "a.js-pagenav-button:nth-last-child(2)",
+            up: "#breadcrumbs a.crumb-link"
+        }
+    ];
 
     if (custom_site(site_info) === 0) {
         switch (detect_forum()) {
