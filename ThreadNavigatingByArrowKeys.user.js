@@ -10,7 +10,7 @@
 // @require         https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 // @noframes
 // @grant           GM_addStyle
-// @version         6.6
+// @version         6.7
 // ==/UserScript==
 
 $(document).ready(function () {
@@ -183,7 +183,7 @@ $(document).ready(function () {
             return;
         }
 
-        if (!action || e.target.tagName == "INPUT" || e.target.tagName == "TEXTAREA") {
+        if (!action || e.target.tagName == "INPUT" || e.target.tagName == "TEXTAREA" || e.target.isContentEditable) {
             return;
         }
 
