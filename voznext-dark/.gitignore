@@ -1,0 +1,8 @@
+/dist/*.zip
+/dist/*
+/fonts/
+/node_modules/
+mix-manifest.json
+mix.js
+npm-debug.log
+yarn-error.log
