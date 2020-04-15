@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Facebook unsponsored fixed
-// @version      1.27
+// @version      1.28
 // @description  Block Facebook news feed "sponsored" posts
 // @author       nmtrung
 // @updateURL    https://raw.githubusercontent.com/nmtrung/greasemonkey-scripts/master/facebook-unsponsored-fixed.user.js
@@ -50,7 +50,7 @@
                     // const targetElem = node.children[childIterator].firstChild || node.children[childIterator];
                     const targetElem = node.children[childIterator].firstChild;
 
-                    if (!(targetElem instanceof Element)) {
+                    if (!targetElem) {
                         continue;
                     }
 
@@ -58,7 +58,7 @@
 
                     if (targetElem.nodeType === Node.TEXT_NODE) {
                         toCompare += targetElem.nodeValue;
-                    } else {
+                    } else if (targetElem.nodeType === Node.ELEMENT_NODE) {
                         const style = window.getComputedStyle(targetElem);
 
                         if (style.display !== 'none' && style.position !== 'absolute') {
