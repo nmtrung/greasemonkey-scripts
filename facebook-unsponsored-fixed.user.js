@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Facebook unsponsored fixed
-// @version      1.26
+// @version      1.27
 // @description  Block Facebook news feed "sponsored" posts
 // @author       nmtrung
 // @updateURL    https://raw.githubusercontent.com/nmtrung/greasemonkey-scripts/master/facebook-unsponsored-fixed.user.js
@@ -43,24 +43,33 @@
         'preCompare': function (node) {
             let toCompare = '';
 
+            // console.log(node, node.textContent);
+
             if (node.offsetParent && node.children.length) {
                 for (let childIterator = 0; childIterator < node.children.length; childIterator++) {
-                    const targetElem = node.children[childIterator].firstChild || node.children[childIterator];
+                    // const targetElem = node.children[childIterator].firstChild || node.children[childIterator];
+                    const targetElem = node.children[childIterator].firstChild;
 
                     if (!(targetElem instanceof Element)) {
                         continue;
                     }
 
-                    const style = window.getComputedStyle(targetElem);
+                    // console.log(targetElem, targetElem.nodeType);
 
-                    if (style.display !== 'none' && style.position !== 'absolute') {
-                        // let pseudoContent = window.getComputedStyle(targetElem, ':after').content;
-                        // pseudoContent = pseudoContent.replace(/['"]+/g, '');
+                    if (targetElem.nodeType === Node.TEXT_NODE) {
+                        toCompare += targetElem.nodeValue;
+                    } else {
+                        const style = window.getComputedStyle(targetElem);
 
-                        // if (pseudoContent && pseudoContent !== 'none') {
-                        //     toCompare += pseudoContent;
-                        // }
-                        toCompare += targetElem.textContent;
+                        if (style.display !== 'none' && style.position !== 'absolute') {
+                            // let pseudoContent = window.getComputedStyle(targetElem, ':after').content;
+                            // pseudoContent = pseudoContent.replace(/['"]+/g, '');
+
+                            // if (pseudoContent && pseudoContent !== 'none') {
+                            //     toCompare += pseudoContent;
+                            // }
+                            toCompare += targetElem.textContent;
+                        }
                     }
                 }
             }
