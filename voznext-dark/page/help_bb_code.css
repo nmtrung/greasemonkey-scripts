@@ -1,0 +1,163 @@
+/*! CSS Used from: https://voz.vn/css.php?css=public%3Abb_code.less%2Cpublic%3Ahelp_bb_codes.less%2Cpublic%3Alightbox.less%2Cpublic%3Anotices.less%2Cpublic%3Aextra.less&s=2&l=1&d=1591174981&k=171203022e6b9a4ac3b7a77afbec04822bf463a0 */
+.bbCodeDemoBlock {
+    padding: .25em 0;
+}
+
+.bbCodeDemoBlock:before,
+.bbCodeDemoBlock:after {
+    content: " ";
+    display: table;
+}
+
+.bbCodeDemoBlock:after {
+    clear: both;
+}
+
+.bbCodeDemoBlock-item {
+    width: 50%;
+    margin: 0;
+    padding: 0;
+    padding-left: 8px;
+    float: left;
+}
+
+.bbCodeDemoBlock-item:first-child {
+    padding-left: 0;
+}
+
+.bbCodeDemoBlock-item>dt {
+    font-size: 0.875rem;
+    color: #8f9193;
+}
+
+.bbCodeDemoBlock-item>dd {
+    margin: 0;
+    background: #e2e3e5;
+    border: 1px solid #cbcdd0;
+    padding: 8px;
+    zoom: 1;
+}
+
+.block-textHeader .block-textHeader-highlight {
+    color: rgb(222, 220, 215);
+}
+
+/*! CSS Used from: Embedded ; media=screen */
+@media screen {
+    .bbCodeDemoBlock-item>dt {
+        color: rgb(186, 181, 170);
+    }
+
+    .bbCodeDemoBlock-item>dd {
+        background-image: initial;
+        background-color: rgb(32, 34, 36);
+        border-color: rgb(59, 62, 65);
+    }
+}
+
+
+
+
+/*! CSS Used from: https://voz.vn/css.php?css=public%3Abb_code.less%2Cpublic%3Ahelp_bb_codes.less%2Cpublic%3Alightbox.less%2Cpublic%3Anotices.less%2Cpublic%3Aextra.less&s=2&l=1&d=1591174981&k=171203022e6b9a4ac3b7a77afbec04822bf463a0 */
+.bbCodeBlock {
+    margin: .75em 0;
+    background: #e2e3e5;
+    border: 1px solid #d3d5d7;
+    border-left: 4px solid #ff944d;
+}
+
+.bbCodeBlock-title {
+    padding: 8px 12px;
+    font-size: 0.875rem;
+    color: #ff944d;
+    background: #e7e8e9;
+}
+
+.bbCodeBlock-title:before,
+.bbCodeBlock-title:after {
+    content: " ";
+    display: table;
+}
+
+.bbCodeBlock-title:after {
+    clear: both;
+}
+
+.bbCodeBlock-content {
+    position: relative;
+    padding: 8px 12px;
+}
+
+.bbCodeBlock-content:before,
+.bbCodeBlock-content:after {
+    content: " ";
+    display: table;
+}
+
+.bbCodeBlock-content:after {
+    clear: both;
+}
+
+.bbCodeBlock--screenLimited .bbCodeBlock-content {
+    max-height: 300px;
+    max-height: 70vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.bbCodeCode {
+    margin: 0;
+    padding: 0;
+    font-family: Monaco, Menlo, Consolas, 'Roboto Mono', 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    text-align: left;
+    direction: ltr;
+    white-space: pre;
+    position: relative;
+    -moz-tab-size: 4;
+    tab-size: 4;
+}
+
+.bbCodeCode code {
+    font-family: inherit;
+}
+
+.bbCodeCode .prism-token.prism-keyword {
+    color: #708;
+}
+
+.bbCodeCode .prism-token.prism-string {
+    color: #a11;
+}
+
+.bbCodeCode .prism-token.prism-variable {
+    color: #05a;
+}
+
+/*! CSS Used from: Embedded ; media=screen */
+@media screen {
+    .bbCodeBlock {
+        background-image: initial;
+        background-color: rgb(32, 34, 36);
+        border-color: rgb(58, 61, 64) rgb(58, 61, 64) rgb(58, 61, 64) rgb(189, 75, 0);
+    }
+
+    .bbCodeBlock-title {
+        color: rgb(255, 148, 77);
+        background-image: initial;
+        background-color: rgb(31, 33, 34);
+    }
+
+    .bbCodeCode .prism-token.prism-keyword {
+        color: rgb(238, 122, 255);
+    }
+
+    .bbCodeCode .prism-token.prism-string {
+        color: rgb(241, 113, 113);
+    }
+
+    .bbCodeCode .prism-token.prism-variable {
+        color: rgb(102, 186, 255);
+    }
+}

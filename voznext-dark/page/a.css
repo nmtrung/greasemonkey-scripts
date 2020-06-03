@@ -1,0 +1,34 @@
+.porta-article-item .porta-article-date .porta-date-block {
+    background: #e2e3e5;
+    border: 1px solid #c3c6c9;
+    width: 50px;
+    padding: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.porta-article-item .porta-article-date .porta-date-block b {
+    display: block;
+    font-size: 1.5em;
+}
+
+@media (max-width:768px) {
+    .porta-article-item .porta-article-date .porta-date-block {
+        width: auto;
+        padding: 10px 5px;
+        transform: rotate(180deg);
+        writing-mode: vertical-rl;
+    }
+
+    .porta-article-item .porta-article-date .porta-date-block b {
+        display: inline;
+        font-size: initial;
+    }
+}
+
+.porta-article-item .porta-article-date .porta-date-block {
+    background-image: initial;
+    background-color: rgb(32, 34, 36);
+    border-color: rgb(60, 64, 67);
+}

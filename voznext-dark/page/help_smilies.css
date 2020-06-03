@@ -1,0 +1,133 @@
+.dataList {
+    max-width: 100%;
+}
+
+@media (max-width:768px) {
+    .dataList {
+        overflow-x: auto;
+    }
+}
+
+.dataList-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.dataList-row.dataList-row--header .dataList-cell {
+    font-size: 0.75rem;
+    color: #ebeced;
+    font-weight: 700;
+    background: rgba(92, 112, 153, 0.5);
+    border-bottom: 1px solid #b5b9bd;
+    text-transform: none;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    padding: 6px 12px;
+    text-align: left;
+}
+
+.dataList-row.dataList-row--header .dataList-cell.dataList-cell--min {
+    text-align: center;
+}
+
+tbody:last-child .dataList-row:last-child .dataList-cell {
+    border-bottom: none;
+}
+
+.dataList-cell {
+    vertical-align: middle;
+    padding: 12px 12px;
+    border-bottom: 1px solid #d3d5d7;
+}
+
+.dataList-cell.dataList-cell--main {
+    min-width: 180px;
+}
+
+.dataList-cell.dataList-cell--alt {
+    background: #e2e3e5;
+}
+
+.dataList-cell.dataList-cell--min {
+    width: 1%;
+    white-space: nowrap;
+    word-wrap: normal;
+    text-align: center;
+}
+
+.dataList-mainRow {
+    width: 0;
+    min-width: 100%;
+    line-height: 1.4;
+    max-height: 1.4em;
+    overflow: hidden;
+    white-space: nowrap;
+    word-wrap: normal;
+    text-overflow: ellipsis;
+}
+
+.dataList-mainRow:empty {
+    display: none;
+}
+
+.dataList-mainRow {
+    font-weight: 700;
+}
+
+.smilie {
+    vertical-align: bottom;
+    max-width: none;
+}
+
+/*! CSS Used from: Embedded ; media=screen */
+.dataList-row.dataList-row--header .dataList-cell {
+    color: rgb(238, 237, 234);
+    background-image: initial;
+    background-color: rgba(55, 67, 92, 0.5);
+    border-bottom-color: rgb(63, 66, 70);
+}
+
+tbody:last-child .dataList-row:last-child .dataList-cell {
+    border-bottom-color: initial;
+}
+
+.dataList-cell {
+    border-bottom-color: rgb(58, 61, 64);
+}
+
+.dataList-cell.dataList-cell--alt {
+    background-image: initial;
+    background-color: rgb(32, 34, 36);
+}
+
+/*! CSS Used from: https://voz.vn/css.php?css=public%3Ahelp_page_smilies.less%2Cpublic%3Anotices.less%2Cpublic%3Aextra.less&s=2&l=1&d=1591174981&k=71e809a4010cbdc64d5e2c3b62147a143bb580cb */
+.smilieText {
+    display: inline-block;
+    padding: 2px 3px;
+    min-width: 16px;
+    text-align: center;
+    vertical-align: text-bottom;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: #525558;
+    background: #e2e3e5;
+    border: 1px solid #c3c6c9;
+}
+
+.smilieText:hover {
+    background: #ebeced;
+}
+
+/*! CSS Used from: Embedded ; media=screen */
+.smilieText {
+    color: rgb(201, 197, 189);
+    background-image: initial;
+    background-color: rgb(32, 34, 36);
+    border-color: rgb(60, 64, 67);
+}
+
+.smilieText:hover {
+    background-image: initial;
+    background-color: rgb(30, 32, 33);
+}
