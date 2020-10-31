@@ -10,7 +10,7 @@
 // @require         https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 // @noframes
 // @grant           GM_addStyle
-// @version         6.7
+// @version         6.8
 // ==/UserScript==
 
 $(document).ready(function () {
@@ -40,18 +40,20 @@ $(document).ready(function () {
             return 'vbb';
         }
 
-        var result = "";
+        let result = "";
+
         if (checkScriptExist("vbulletin")) result = "vbb";
-        else if (checkScriptExist("xenforo")) result = "xenforo";
+        else if (checkScriptExist("/js/xf/")) result = "xenforo";
         else if (checkScriptExist("general.js")) result = "mybb";
         else if (checkScriptExist("forum_fn.js")) result = "phpbb";
+
         return result;
     }
 
-    var prev, next, first, last, up, up_sub = '[itemtype="http://data-vocabulary.org/Breadcrumb"] a';
+    var prev, next, first, last, up, up_sub = '[itemtype="https://schema.org/BreadcrumbList"] a';
     var site_info = [
         {
-            host: "next.voz.vn",
+            host: "voz.vn",
             prev: "a.pageNav-jump--prev",
             next: "a.pageNav-jump--next",
             first: ".pageNav-main>.pageNav-page:first-child>a",
@@ -83,11 +85,11 @@ $(document).ready(function () {
                 up = "span.navbar a, li.navbit a";
                 break;
             case 'xenforo':
-                prev = ".PageNav a.text:first-child";
-                next = ".PageNav a.text:last-child:not(.brjtpJumper)";
-                last = ".PageNav nav > a:nth-last-child(2)";
-                first = 'a[rel="start"]';
-                up = "a.crumb";
+                prev = "a.pageNav-jump--prev";
+                next = "a.pageNav-jump--next";
+                last = ".pageNav-main > .pageNav-page:last-child > a";
+                first = '.pageNav-main > .pageNav-page:first-child > a';
+                // up = ".p-breadcrumbs";
                 break;
             case 'mybb':
                 prev = "a.pagination_previous";
