@@ -1,45 +1,52 @@
 /* ==UserStyle==
 @name           voz.vn - typography
 @namespace      github.com/nmtrung/stylus
-@version        1.0.0
+@version        1.0.2
 @author         nmtrung
 ==/UserStyle== */
 
-body,
-.message-body,
-.fr-box.fr-basic .fr-element,
-button,
-input,
-optgroup,
-select,
-textarea {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-}
+@-moz-document domain("voz.vn") {
+  body,
+  .message-body,
+  .fr-box.fr-basic .fr-element,
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  }
 
-.message-responses {
+  .message-responses {
     font-size: 1rem;
-}
+  }
 
-.structItem-title {
+  .structItem-title {
     font-size: 1.05rem;
-}
+  }
 
-.p-breadcrumbs>li {
+  .p-breadcrumbs > li {
     font-size: 0.95rem;
-}
+  }
 
-.bbCodeBlock.bbCodeBlock--quote .bbCodeBlock-content,
-.bbCodeBlock-title {
+  .bbCodeBlock.bbCodeBlock--quote .bbCodeBlock-content,
+  .bbCodeBlock-title {
     font-size: 0.925rem;
-}
+  }
 
-.message-attribution,
-.message-userTitle,
-.structItem-minor,
-.reactionsBar {
+  .message-attribution,
+  .message-userTitle,
+  .structItem-minor,
+  .reactionsBar {
     font-size: 0.8rem;
-}
+  }
 
-.bbImageWrapper > .bbImage {
+  .bbImageWrapper > .bbImage {
     max-width: 1024px;
+  }
+
+  .fr-element.fr-view[contenteditable="true"] {
+    min-height: auto !important;
+  }
 }
