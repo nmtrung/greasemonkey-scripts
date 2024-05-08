@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           voz.vn - typography
 @namespace      github.com/nmtrung/stylus
-@version        1.0.2
+@version        1.0.3
 @author         nmtrung
 ==/UserStyle== */
 
@@ -44,9 +44,5 @@
 
   .bbImageWrapper > .bbImage {
     max-width: 1024px;
-  }
-
-  .fr-element.fr-view[contenteditable="true"] {
-    min-height: auto !important;
   }
 }
