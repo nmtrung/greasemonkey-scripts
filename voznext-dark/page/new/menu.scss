@@ -82,6 +82,7 @@
 /*! CSS Used from: Embedded ; media=screen */
 @media screen {
   .js-alertsMenuBody .alert.is-unread,
+  .js-alertsMenuBody .alert.is-recently-read.is-just-read,
   .alert-list .alert.is-unread {
     color: rgb(216, 213, 208);
     background-image: initial;
@@ -94,7 +95,6 @@
     background-color: rgb(40, 43, 44);
   }
   .js-alertsMenuBody .alert.is-recently-read,
-  .js-alertsMenuBody .alert.is-recently-read.is-just-read,
   .alert-list .alert.is-recently-read {
     color: rgb(216, 213, 208);
     background-image: initial;
